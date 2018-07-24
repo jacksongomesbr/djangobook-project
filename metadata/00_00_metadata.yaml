@@ -1,0 +1,254 @@
+---
+doi: &doi ~
+
+title: &title 'Desenvolvimento web com  Django'
+
+subtitle: &subtitle 'Ferramentas modernas para desenvolvimento de software web'
+
+author: &author
+  - 'Jackson Gomes \\ jgomes@ceulp.edu.br'
+
+web: &web 'http://ulbra-to.br'
+
+email: &email 
+  - 'jgomes@ceulp.edu.br'
+
+subject: &subject ~
+
+year: &year '2018'
+
+# example '\today'
+date: &date ~
+
+submission_date: *date
+
+place: &place 'Palmas - TO'
+
+aim:
+  normal: ~
+  formal: ~
+
+# abstract: &abstract >
+  # ~
+
+another_abstract: &another_abstract >
+
+# ['example1','example2','example3']
+tags: &tags ~
+
+keywords: *tags
+
+institute: &institute
+  - 'Centro Universitário Luterano de Palmas'
+  - 'Departamento de Computação'
+  - ~
+  - ~
+
+dedication: ~
+
+license:
+  short: ~
+  long: ~
+  year: '2018'
+  holder: 'Jackson Gomes'
+  email: 'jgomes@ceulp.edu.br'
+  url: ~
+
+#version: &version
+#  timestamp: ~
+#  hash: ~
+#  link: ~
+
+publishers: ~
+
+# default names, labels and symbols
+default:
+  version:
+    label: 'Version (Timestamp + Hash)'
+  publication:
+    label: 'Publication'
+  license:
+    label: &license_label 'License'
+    symbol: &creativecommons_symbol '\ccbysa'
+  abstract:
+    label: 'Resumo'
+  another_abstract:
+    label: 'Abstract'
+  person_id:
+    label: 'Open Researcher and Contributor ID (ORiCD)'
+    symbol: &orcid_symbol '\scalerel*{\includegraphics{./icons/orcid_icon.pdf}}{O}'
+  object_id:
+    label: 'Digital Object Identifier (DOI)'
+    symbol: &doi_symbol '\scalerel*{\includegraphics{./icons/doi_icon.pdf}}{O}'
+  advisor:
+    label: &advisor_label 'Supervised'
+  submission:
+    label: &submission_label 'Submitted on'
+  email:
+    label: &email_label 'E-Mail'
+  web:
+    label: &web_label 'Web'
+  role:
+    creator: &creator 'Author'
+    co-creator: &co-creator 'Co-Author'
+    contributor: &contributor 'Contributor'
+    advisor: &advisor 'Advisor'
+    reviewer: &reviewer 'Reviewer'
+    examinator: &examinator 'Examinator'
+    first_examinator: &first_examinator '1. Examinator'
+    second_examinator: &second_examinator '2. Examinator'
+  extratitle_line: ~
+
+# (co-)creators and (co-)authors
+creators:
+  - creator:
+    - title: Prof.
+    - firstname: Jackson
+    - lastname: Gomes
+    - orcid: ~
+    - web: ~
+    - email: jgomes@ceulp.edu.br
+    - role: ~
+    - affiliation:
+      <<:
+    - address:
+      - ~
+      - ~
+      - ~
+    - id: ~
+    - contact: ~
+    - note: ~
+  - creator:
+    - title: ~
+    - firstname: ~
+    - lastname: ~
+    - orcid: ~
+    - web: ~
+    - email: ~
+    - role: ~
+    - affiliation:
+      <<:
+    - address:
+      - ~
+      - ~
+      - ~
+    - id: ~
+    - contact: ~
+    - note: ~
+
+# advisors, reviewers, examinators, participants
+advisors:
+  - advisor:
+    - title: ~
+    - firstname: ~
+    - lastname: ~
+    - orcid: ~
+    - web: ~
+    - email: ~
+    - role: ~
+    - affiliation:
+      <<:
+    - address:
+      - ~
+      - ~
+      - ~
+    - id: ~
+    - contact: ~
+    - note: ~
+  - advisor:
+    - title: ~
+    - firstname: ~
+    - lastname: ~
+    - orcid: ~
+    - web: ~
+    - email: ~
+    - role:
+    - affiliation:
+      <<:
+    - address:
+      - ~
+      - ~
+      - ~
+    - id: ~
+    - contact: ~
+    - note: ~
+
+# tech stack
+tools:
+  - description: >
+      This publication was written using free software only. The following tools were especially helpful:
+  - stack:
+    - symbol: '\includegraphics{./icons/atom_editor_icon.pdf}'
+    - label: 'Atom Editor'
+    - url: 'https://atom.io/'
+  - stack:
+    - symbol: ~
+    - label: 'Better Bib(La)TeX for Zotero'
+    - url: 'https://retorque.re/zotero-better-bibtex/'
+  - stack:
+    - symbol: '\includegraphics{./icons/csl_icon.pdf}'
+    - label: 'CSL'
+    - url: 'http://citationstyles.org/'
+  - stack:
+    - symbol: '\includegraphics{./icons/git_icon.pdf}'
+    - label: 'git'
+    - url: 'https://git-scm.com/'
+  - stack:
+    - symbol: ~
+    - label: 'KOMA-Script'
+    - url: 'https://ctan.org/pkg/koma-script?lang=en/'
+  - stack:
+    - symbol: ~
+    - label: '\LaTeX'
+    - url: 'https://www.latex-project.org/'
+  - stack:
+    - symbol: '\includegraphics{./icons/markdown_icon.pdf}'
+    - label: 'Markdown'
+    - url: 'https://daringfireball.net/projects/markdown/'
+  - stack:
+    - symbol:
+    - label: 'Pandoc'
+    - url: 'http://pandoc.org/'
+  - stack:
+    - symbol: ~
+    - label: 'pandoc-citeproc'
+    - url: 'https://github.com/jgm/pandoc-citeproc/'
+  - stack:
+    - symbol: ~
+    - label: 'pandoc-crossref'
+    - url: 'https://github.com/lierdakil/pandoc-crossref/'
+  - stack:
+    - symbol: ~
+    - label: '\TeX Live'
+    - url: 'https://www.tug.org/texlive/'
+  - stack:
+    - symbol: ~
+    - label: '\XeLaTeX'
+    - url: 'http://xetex.sourceforge.net/'
+  - stack:
+    - symbol: ~
+    - label: 'YAML'
+    - url: 'http://yaml.org/'
+  - stack:
+    - symbol: '\includegraphics{./icons/zotero_icon.pdf}'
+    - label: 'Zotero'
+    - url: 'https://www.zotero.org/'
+  - stack:
+    - symbol: ~
+    - label: 'zotero-citations'
+    - url: 'https://github.com/retorquere/zotero-citations/'
+  - stack:
+    - symbol: ~
+    - label: 'zotero-picker'
+    - url: 'https://github.com/oztalha/zotero-picker/'
+  - stack:
+    - symbol: ~
+    - label: 'zotfile'
+    - url: 'https://github.com/jlegewie/zotfile/'
+
+# to specify metadata stored in pdf
+title-meta: *title
+auto-meta: *author
+date-meta: *date
+doi-meta: *doi
+...

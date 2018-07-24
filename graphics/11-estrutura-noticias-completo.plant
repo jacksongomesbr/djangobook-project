@@ -1,0 +1,95 @@
+@startuml
+namespace django {
+    namespace apps {
+        class AppConfig
+    }
+    namespace db {
+        namespace migrations {
+            class Migration
+        }
+        namespace models {
+            class Model
+        }
+    }
+    namespace contrib {
+        namespace admin {
+            class ModelAdmin
+        }
+    }
+    package urls [
+        reverse()
+    ]
+    package shortcuts [
+        render()
+    ]
+    namespace test {
+        class TestCase
+    }
+    namespace views {
+        namespace generic {
+            class ListView {
+                model
+                template_name
+            }
+        }
+    }
+}
+
+package projeto_noticias [
+settings.py
+urls.py
+wsgi.py
+]
+
+namespace app_noticias {
+    namespace apps {
+        class AppNoticiasConfig {
+            name
+        }
+        django.apps.AppConfig <|-- AppNoticiasConfig
+    }
+    namespace 0001_initial {
+        class Migration {
+            initial
+            dependencies
+            operations
+        }
+        django.db.migrations.Migration <|-- Migration
+    }
+    namespace models {
+        class Noticia {
+            titulo
+            conteudo
+            __str__()
+        }
+        django.db.models.Model <|-- Noticia
+    }
+    namespace admin {
+        class NoticiaAdmin
+        django.contrib.admin.ModelAdmin <|-- NoticiaAdmin
+    }
+    namespace tests {
+        class NoticiaModelTest {
+            setUp()
+            test_deve_encontrar_noticia_x()
+            test_deve_encontrar_noticia_com_id_1()
+            test_deve_gerar_excecao_para_encontrar_noticia_com_id_2()
+        }
+        class HomePageViewTests {
+            setUp()
+            test_home_status_code_deve_ser_200()
+            test_deve_encontrar_url_por_nome()
+            test_view_deve_usar_template_correto()
+        }
+        django.test.TestCase <|-- NoticiaModelTest
+        django.test.TestCase <|-- HomePageViewTests
+    }
+    namespace views {
+        class HomePageView
+        django.views.generic.ListView <|-- HomePageView
+    }
+}
+
+projeto_noticias -> app_noticias: usa
+
+@enduml
