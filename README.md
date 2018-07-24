@@ -1,6 +1,6 @@
 # djangobook
 
-O **djangobook** é um livro open-source sobre desenvolvimento web com Angular. O projeto é criado com base no projeto [arabica](https://github.com/qualiacode/arabica) e utiliza [pandoc](http://pandoc.org/) e seus amigos para produzir um conteúdo em formato de livro a partir de fontes em Markdown.
+O **djangobook** é um livro open-source sobre desenvolvimento web com **Django**. O projeto é criado com base no projeto [arabica](https://github.com/qualiacode/arabica) e utiliza [pandoc](http://pandoc.org/) e seus amigos para produzir um conteúdo em formato de livro a partir de fontes em Markdown.
 
 Você pode sugerir alterações (use issues) ou criar sua própria versão, respeitando a licença. Sugiro fortemente acompanhar as recomendações do [arabica](https://github.com/qualiacode/arabica) e utilizar o arquivo `Makefile` que acompanha este repositório.
 
