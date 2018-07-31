@@ -12,7 +12,7 @@ Falando em **projeto**, esta é uma unidade importante do Django, que organiza o
 
 ## Ambiente do projeto e dependências 
 
-Uma etapa importante de todo projeto Django é a configuração do ambiente. Antes de prosseguir, garanta que seu ambiente esteja com as ferramentas devidamente configuradas. Além disso, como há mais de uma forma de gerenciar pacotes do projeto, o restante desse livro não vai indicar qual ferramenta utilizar, mas considerar que você já sabe realizar essa tarefa.
+Uma etapa importante de todo projeto Django é a configuração do ambiente. Antes de prosseguir, garanta que seu ambiente esteja com as ferramentas devidamente configuradas (veja [@sec:apendice-1] e depois volte para cá). Além disso, como há mais de uma forma de gerenciar pacotes do projeto, o restante desse livro não vai indicar qual ferramenta utilizar, mas considerar que você já sabe realizar essa tarefa.
 
 O **Django** é distribuído como um pacote do Python. Isso significa que o ambiente do seu projeto precisa ter instalado o pacote `django`.
 
@@ -124,7 +124,9 @@ O Heroku precisa que você crie o arquivo `Procfile`, que especifica configurç�
 web: gunicorn hello_world_django.wsgi --log-file -
 ```
 
-Isso indica para o Heroku que ele vai utilizar o servidor web **gunicorn** que, diferentemente do servidor web local que você acabou de utilizar, é voltado para o ambiente de produção.
+Perceba que "hello_world_django" é o nome do projeto Django e pode  ser adaptado à sua realidade.
+
+O conteúdo do `Procfile` indica para o Heroku que ele vai utilizar o servidor web **gunicorn** que, diferentemente do servidor web local que você acabou de utilizar, é voltado para o ambiente de produção.
 
 Instale o pacote `gunicorn` no seu ambiente de projeto.
 
@@ -151,13 +153,13 @@ $ git config user.name "Nome do usuário"
 
 Substitua `email@servidor.com` pelo e-mail utilizado na sua conta do Heroku.
 
-Em seguida adicione todos os arquivos do diretório autal em um **commit**:
+Em seguida adicione todos os arquivos do diretório atual no próximo **commit**:
 
 ```{style=nonumber .sh}
 $ git add .
 ```
 
-Depois faça um **commit**:
+e faça um **commit**:
 
 ```{style=nonumber .sh}
 $ git commit -m "Commit inicial para produção"
@@ -186,7 +188,7 @@ $ heroku git:remote -a lit-sands-61516
 
 Isso faz com que o Git seja configurado para enviar arquivos para o Heroku.
 
-Defina uma variável de ambiente para que o Heroku ignore arquivos estáticos (como arquivos CSS e JavaScript):
+Configure o Heroku para ignorar arquivos estáticos (como arquivos CSS e JavaScript):
 
 ```{style=nonumber .sh}
 $ heroku config:set DISABLE_COLLECTSTATIC=1

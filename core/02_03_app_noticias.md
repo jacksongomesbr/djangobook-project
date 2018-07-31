@@ -1,10 +1,12 @@
 # Aplicativo Notícias {#sec:app-noticias}
 
-[@sec:introducao] apresentou os conceitos e as ferramentas básicas para o desenvolvimento de aplicativos em Django. Entretanto, o aplicativo **hello-world-django** tinha apenas o conteúdo padrão de um aplicativo Django e não explorou as funcionalidades deste framework. Este capítulo apresenta o aplicativo **noticias** e vai explorar conceitos de persistência de dados em bancos de dados, mapeador objeto-relacional (ORM) do Django e testes.
+O Capítulo [-@sec:introducao] apresentou os conceitos e as ferramentas básicas para o desenvolvimento de aplicativos em Django. Entretanto, o aplicativo **hello-world-django** tem apenas o conteúdo padrão de um aplicativo Django e tem o objetivo de explorar as funcionalidades deste framework. 
+
+Este capítulo apresenta o aplicativo **noticias** e vai explorar conceitos de persistência de dados em bancos de dados, mapeador objeto-relacional (ORM) do Django e testes.
 
 ## Configuração inicial
 
-Siga o *workflow* apresentado na [@sec:introducao] para criar a pasta `noticias`, configurar o ambiente do projeto com o pacote `django`, e criar o projeto Django `projeto_noticias`. Se estiver com dúvidas, não se procupe, volta lá na [@sec:introducao].
+Siga o *workflow* apresentado no Capítulo [-@sec:introducao] para criar a pasta `noticias`, configurar o ambiente do projeto com o pacote `django`, e criar o projeto Django `projeto_noticias`. Se estiver com dúvidas, não se procupe, volta lá no Capítulo [-@sec:introducao] sempre que precisar, depois continua.
 
 ## Projeto e aplicativo Django
 
@@ -74,7 +76,7 @@ Um ORM permite que o desenvolvedor Django mantenha o foco em código Python, ape
 
 ## Estrutura do projeto
 
-A estrutura do projeto já começa ficar maior e, para ajudar a esclarecer, a [@fig:estrutura-noticias] ilustra estrutura do software.
+A estrutura do projeto já começa ficar maior e, para ajudar a esclarecer, a [@fig:estrutura-noticias] apresenta uma ilustração.
 
 ```{#fig:estrutura-noticias .plantuml caption="Estrutura do projeto Noticias" format="eps" width=10cm}
 @startuml
@@ -125,11 +127,8 @@ Os arquivos `models.py` e `views.py` representam uma parte importante do modelo 
 Para o aplicativo **app_noticias** precisamos de um modelo de dados que permita representar uma notícia e seu conteúdo. Fazemos isso modificando o arquivo `app_noticias/models.py` para conter o seguinte:
 
 ```{#lst:app_noticias_noticia_model_inicio .python caption="Código inicial do model Noticia"}
-# app_noticias/models.py
-
 from django.db import models
 
-# Create your models here.
 class Noticia(models.Model):
     conteudo = models.TextField()
 ```
@@ -181,7 +180,7 @@ sessions
  [X] 0001_initial
 ```
 
-Isso permite identificar quais migrations de quais aplicativos Django estão aplicadas (marcadas com `[X]`) ou não.
+Isso permite identificar quais migrations de quais aplicativos Django estão aplicadas (marcadas com `[X]`) ou não (marcadas com `[ ]`).
 
 ## Interface Administrativa ou Django Admin
 
@@ -204,7 +203,7 @@ Agora inicie o servidor web local.
 $ python manage.py runserver
 ```
 
-Agora, ao acessar o software, utilize o caminho `http://127.0.0.1:8000/admin`. Você verá uma tela de autenticação semelhante à ilustrada pela figura [@fig:4-app-noticias-django-admin-login].
+Acesse o software no browser, direcionando para o caminho `/admin`) (ie. `http://localhost:8000/admin`). Você verá uma tela de autenticação semelhante à ilustrada pela figura [@fig:4-app-noticias-django-admin-login].
 
 ![Tela de autenticação do Django Admin](./graphics/4-app-noticias-django-admin-login.png){#fig:4-app-noticias-django-admin-login}
 
@@ -222,7 +221,7 @@ A [@fig:5-app-noticias-django-admin-home] mostra que a tela inicial da administr
 
 ## Personalizando o idioma e o fuso horário
 
-O Django foi desenvolvido com foco na **internacionalização**, a tarefa de adaptar a interface gráfica conforme o idioma e necessidades do usuário. 
+O Django foi desenvolvido com foco na **internacionalização**, a tarefa de adaptar a interface gráfica conforme o idioma e as necessidades do usuário. 
 
 Você deve ter percebido que as telas do Django admin estão com textos no idioma Inglês, mas seria muito melhor, considerando que o software de notícias seria utilizado por brasileiros, que o idioma fosse o Português. Para fazer isso altere o arquivo `projeto_noticias/settings.py` da seguinte forma:
 
@@ -247,8 +246,6 @@ Como você percebeu ainda não é possível cadastrar as notícias por meio do D
 
 ```{#lst:app_noticias_admin_inicio .python caption="Código inicial para configuração do Django admin"}
 from django.contrib import admin
-
-# Register your models here.
 from .models import Noticia
 
 @admin.register(Noticia)
@@ -262,7 +259,7 @@ class NoticiaAdmin(admin.ModelAdmin):
 2. chamar a **função de anotação** `admin.register()` e indicar o model `Noticia`
 3. declarar a classe `NoticiaAdmin`, que herda de `ModelAdmin` (disponível em `django.contrib.admin`).
 
-Uma **função de anotação** (ou **annotation function**) é um recurso do Python para adicionar metadados a uma classe, por exemplo. O código demonstra que é criada uma interface de administração para o model `Noticia`. Para ver, na prática, o que isso significa, veja a atualização na tela inicial do Django admin, como ilustra a [@fig:6-app-noticias-django-admin-home]
+Uma **função de anotação** (**decorator** ou **annotation function**) é um recurso do Python para adicionar metadados a uma classe, por exemplo. O código demonstra que é criada uma interface de administração para o model `Noticia`. Para ver, na prática, o que isso significa, veja a atualização na tela inicial do Django admin, como ilustra a [@fig:6-app-noticias-django-admin-home]
 
 
 ![Tela inicial da administração do site no Django Admin mostrando o aplicativo "APP_NOTICIAS"](./graphics/6-app-noticias-django-admin-home.png){#fig:6-app-noticias-django-admin-home}
@@ -284,14 +281,13 @@ A [@fig:8-app-noticias-django-admin-noticia-add] apresenta um formulário conten
 
 A [@fig:9-app-noticias-django-admin-noticia-lista] mostra uma notificação indicando que uma notífica foi cadastrada com sucesso (abaixo do *breadcrumbs*) e que é possível selecionar registros e clicar sobre um deles para editá-lo. Experimente brincar um pouco com essa interface de administração de dados.
 
-## Incrementando o model de Noticia
+## Incrementando o modelo de dados
 
 A interface administrativa funciona bem, mas não está muito interessante apresentar cada item da lista com "Noticia object(n)", não é? Vamos melhorar isso. Modifique o arquivo `app_noticias/models.py` para o seguinte:
 
 ```{.python}
 from django.db import models
 
-# Create your models here.
 class Noticia(models.Model):
     class Meta:
         verbose_name = 'Notícia'
@@ -316,7 +312,7 @@ O campo `titulo` é do tipo `CharField` e a instanciação fornece mais parâmet
 
 A diferença entre os tipos `CharField` e `TextField` é que o primeiro é utilizado para representar uma string de uma linha, enquanto o segundo é utilizado para representar uma string com múltiplas linhas. Na interface gráfica do formulário de cadastro do model no Django admin o `TextField` é apresentado como um elemento `textarea`, enquanto o `CharField` é apresentado como um `input` com `type="text"`. 
 
-O campo `conteudo` também passa a ter uma representação literal (primeiro parâmetro do construtor de `TextField`).
+O campo `conteudo` também passa a ter um nome literal (primeiro parâmetro do construtor de `TextField`).
 
 O método `__str__()` é utilizado para criar uma representação de string de um registro. O conteúdo do código indica, portanto, que a representação string do registro é o valor do campo `titulo`.
 
@@ -344,7 +340,6 @@ As seções anteriores mostraram como trabalhar com o **Model**. Agora é o mome
 from django.shortcuts import render
 from django.views.generic import ListView
 
-# Create your views here.
 from .models import Noticia
 
 class HomePageView(ListView):
@@ -355,14 +350,14 @@ class HomePageView(ListView):
 O [@lst:app_noticias_views] demonstra a importação da classe `ListView`, fornecida pelo pacote `django.views.generic` e da classe `Noticia`, que está no arquivo `models.py` (linha 5). Além disso, demonstra o conteúdo da classe `HomePageView`, que herda de `ListView` e é utilizada para representar uma **class based view** (view baseada em classe). A classe possui dois atributos importantes:
 
 * `model`: indica o model utilizado na view (nesse caso, o model `Noticia`)
-* `template_name`: indica o nome do **template** utilizado na view
+* `template_name`: indica o caminho do **template** utilizado na view
 
 Quando o Django identifica que é necessário apresentar uma View do tipo `ListView` ele inicia um procedimento que passa pela identificação do model e do template. Identificar o model é necessário para saber quais dados devem ser obtidos (nesse caso, uma lista de notícias) e identificar o template para saber como, efetivamente, gerar o HTML que será fornecido como resposta para o browser.
 
 
 ### Templates
 
-Um **Template** é outro elemento importante do Django. Sua responsabilidade é, efetivamente, criar a interface gráfica de uma View. Embora o nome "view" dê a entender que a própria classe `HomePageView` teria também a descrição da interface gráfica, a maneira mais usual é associar um template a uma view. Nesse caso o template utilizado está em `app_noticias/templates/app_noticias/home.html`. Qual a razão desse caminho e por que na classe o valor de `template_name` é apenas `'app_noticias/home.html'`?
+Um **Template** é outro elemento importante do Django. Sua responsabilidade é, efetivamente, criar a interface gráfica de uma View. Embora o nome "view" dê a entender que a própria classe `HomePageView` teria também a descrição da interface gráfica, a maneira mais usual é associar um Template a uma view e a classe a um Controller. Nesse caso o template utilizado está em `app_noticias/templates/app_noticias/home.html`. Qual a razão desse caminho e por que na classe o valor de `template_name` é apenas `'app_noticias/home.html'`?
 
 O Django determina uma estrutura padrão para o projeto e, em relação a templates de aplicativos Django, eles devem estar em uma pasta `templates` dentro do aplicativo. Além disso, os templates devem estar em outra pasta com o nome do aplicativo. Isso explica o caminho do arquivo do template.
 
@@ -370,7 +365,6 @@ Entretanto, na hora de informar para a view qual template utilizar deve-se infor
 
 ```{#lst:app_noticias_template_home .html caption="Código inicial para o template \"home\" do software Notícias"}
 <h1>Notícias</h1>
-
 {% for noticia in object_list %}
 <div>
     <h2>{{ noticia.titulo }}</h2>
@@ -394,13 +388,13 @@ Uma **tag** permite, por exemplo, controle de fluxo. No [@lst:app_noticias_templ
 {% endfor %}
 ```
 
-O template possui a variável `object_list`, que representa a lista de notícias cadastradas (isso é informado pela view `HomePageView`). Assim, o conteúdo do bloco é repetido para cada elemento de `object_list`, ou seja, o objeto `noticia`. 
+O template possui a variável `object_list`, que representa a lista de notícias cadastradas (isso é informado pela  `HomePageView`). Assim, o conteúdo do bloco é repetido para cada elemento de `object_list`, ou seja, o objeto `noticia`. 
 
 O conteúdo do bloco utiliza a sintaxe de variável para apresentar o título (linha 5) e o conteúdo da notícia (linha 6). Em especial, a linha 6 utiliza o filtro `linebreaksbr`, que é utilizado para converter quebras de linha em elementos `<br>` do HTML.
 
 ### URLs
 
-Embora o software tenha a view `HomePageView` e seu template, é necessário informar ao Django como chegar até essa view, definindo URLs do aplicativo `app_noticias`. Para isso, crie o arquivo `app_noticias/urls.py` com o seguinte conteúdo:
+Embora o software tenha a `HomePageView` e seu template, é necessário informar ao Django como chegar até essa view, definindo URLs do aplicativo `app_noticias`. Para isso, crie o arquivo `app_noticias/urls.py` com o seguinte conteúdo:
 
 
 ```{#lst:app_noticias_urls .python caption="Código inicial para as URLs do aplicativo Notícias"}
@@ -451,7 +445,7 @@ Esse comportamento faz com que o arquivo do banco de dados SQLite seja sobrescri
 
 ## Testes
 
-Lembra que comentei na [@sec:introducao] que no *workflow* é muito bom garantir que o software esteja funcionando corretamente antes de fazer o deploy? Então, essa seção apresenta uma forma sistemática de garantir isso. 
+Lembra que comentei no Capítulo [-@sec:introducao] que no *workflow* é muito bom garantir que o software esteja funcionando corretamente antes de fazer o deploy? Então, essa seção apresenta uma forma sistemática de garantir isso. 
 
 Quando é necessário verificar que um software está funcionando como esperado, geralmente são conduzidos **testes unitários**, que verificam, por exemplo, se a lógica do acesso ou gerenciamento dos  dados (Model) está funcionando. Para conduzir esse tipo de teste o Django fornece recursos como a classe `TestCase` (pacote `django.test`). 
 

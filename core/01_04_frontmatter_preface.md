@@ -1,10 +1,10 @@
-# Prefácio
+# Prefácio  {-}
 
 Este é um livro sobre tecnologias de desenvolvimento de software para a web com foco no **Django**, um *framework* de desenvolvimento web. Um *framework* representa um modelo, uma forma de resolver um problema. Em termos de desenvolvimento de software para a web um framework fornece ferramentas (ie. código) para o desenvolvimento de aplicações. Geralmente o propósito de um framework é agilizar as atividades de desenvolvimento de software, inclusive, fornecendo código pronto (componentes, bibliotecas etc.) para resolver problemas comuns, como uma interface de cadastro.
 
 O objetivo deste livro é fornecer uma ferramenta para o desenvolvimento de habilidades de desenvolvimento web com Django, com a expectativa de que você comece aprendendo o básico (o "hello world") e conclua com habilidades necessárias para o desenvolvimento de software que conecta com banco de dados ou fornece uma API HTTP REST, por exemplo.
 
-## Convenções
+## Convenções {-}
 
 Os trechos de código apresentados no livro seguem o seguinte padrão:
 
@@ -40,7 +40,7 @@ class Pessoa:
         return ModelManager.save(self)
 ```
 
-## Ambiente de execução do Python e do Django
+## Ambiente de execução do Python e do Django  {-}
 
 Este livro é voltado para a versão **3.x** do Python e versão **2.x** do Django. [@sec:apendice-1] apresenta um rápido tutorial sobre configuração de um ambiente Python com **pip** e **virtualenv** ou **pipenv**. Essas ferramentas são fundamentais para a configuração do ambiente de desenvolvimento.
 
@@ -74,7 +74,7 @@ Para utilizar o Heroku você precisa criar uma conta de usuário. Acesse [https:
 
 Depois que tiver criado e validado sua conta de usuário instale o **Heroku CLI**, uma ferramenta de linha de comando (prompt) que fornece uma interface de texto para criar e gerenciar aplicativos Heroku. Detalhes da instalação dessa ferramenta não são tratados aqui, mas comece acessando [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli).
 
-## Servidor web
+## Servidor web  {-}
 
 Um **servidor web** é um programa que fornece um serviço de rede que funciona recebendo e atendendo requisições de clientes. Um **cliente**, por exemplo, é o browser.
 

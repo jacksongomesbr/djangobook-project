@@ -18,7 +18,7 @@ subject: &subject ~
 year: &year '2018'
 
 # example '\today'
-date: &date ~
+date: &date '2018'
 
 submission_date: *date
 

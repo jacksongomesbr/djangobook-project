@@ -2,15 +2,9 @@
  
 ## Windows
 
-### Instalação do Python
+Faça download do instalador do Python na [página de releases para windows](https://www.python.org/downloads/windows/)^[Acesse: <https://www.python.org/downloads/windows/>]. 
 
-Faça download do instalador do Python na [página de releases para windows](https://www.python.org/downloads/windows/). 
-
-> **Cuidado**: Utilize a versão apropriada para seu sistema operacional, de 32 ou 64 bits.
-
-> **Sugestão**: Utilize a versão mais recente, de 64 bits.
-
-Depois do download concluído, execute o instalador e siga os passos apresentados nas telas.
+Depois de concluir o download execute o instalador e siga os passos apresentados nas telas.
 
 Verifique a instalação obtendo a versão do Python, executando o seguinte comando:
 
@@ -21,10 +15,7 @@ $ python --version
 O comando apresenta a versão instalada. 
 
 
-
 ## Linux (Ubuntu)
-
-### Instale o python
 
 Antes de continuar, atualize seus repositórios `apt` executando o comando:
 
@@ -32,7 +23,7 @@ Antes de continuar, atualize seus repositórios `apt` executando o comando:
 $ sudo apt-get update
 ```
 
-Execute o comando a seguir para instalar o python:
+Execute o comando a seguir para instalar o python 3:
 
 ```{style=nonumber .sh}
 $ sudo apt-get install build-essential python3 python3-pip python3-dev python3-setuptools
@@ -42,20 +33,27 @@ Esse comando instala: **Python**, **pip** e pacotes para um ambiente completo de
 
 Geralmente a instalação deste pacote tornará disponíveis os programas `python3` e `pip3`. Lembre-se disso porque distribuições Linux costumam usar esse recurso diferenciar o **Python 2.x** do **Python 3.x**.
 
+## Ambiente com permissões restritas
 
-## Instalação do virtualenv
+Se você estiver utilizando um ambiente com restrições de permissões (ie. não tem acesso root ou administrator) adicione a opção `--user` toda vez que utilizar o comando  `pip` antes de habilitar um ambiente do projeto. Isso fará com que os pacotes sejam instalados no diretório do seu usuário e não haverá problemas com permissões. Por exemplo, para instalar o **pipenv**:
+
+```{style=nonumber}
+$ pip install pipenv --user
+```
+
+## Usando o virtualenv
 
 Instale o **virtualenv** utilizando **pip**:
 
 ```{style=nonumber .sh}
-$ pip3 install virtualenv
+$ pip install virtualenv
 ```
 
 ### Criação de um ambiente do projeto
 
 A criação de um ambiente do projeto permite diferenciar pacotes e versões de pacotes do ambiente global do python.
 
-A partir da pasta do seu projeto execute:
+A partir da pasta do projeto execute:
 
 ```{style=nonumber .sh}
 $ virtualenv env
@@ -79,7 +77,7 @@ no Linux:
 $ source env/bin/activate
 ```
 
-A indicação de que o comando foi alterado com sucesso é a presenta de `(env)` no prompt e, além disso, você pode executar o comando a seguir para obter a lista de pacotes instalados no ambiente local:
+A indicação de que o comando foi alterado com sucesso é a presença de `(env)` no prompt e, além disso, você pode executar o comando a seguir para obter a lista de pacotes instalados no ambiente local:
 
 ```{style=nonumber .sh}
 $ pip list
@@ -91,12 +89,12 @@ Se tudo estiver correto, você verá uma lista com:
 * `setuptools`
 * `wheel`
 
-
-> **Importante**: Perceba que não é mais necessário usar os programas `pip` de `pip3` para diferenciar a versão do Python. Apenas `pip` é necessário.
+Perceba que não é mais necessário usar os programas `pip` ou `pip3` para diferenciar a versão do Python. Apenas `pip` é necessário.
 
 Na prática, o programa `activate` configura o ambiente do projeto definindo, principalmente, variáveis de ambiente.
 
-### Desativação do ambiente do projeto
+
+### Desativação do ambiente
 
 Para desativar o ambiente do projeto e retornar ao ambiente global do Python execute o programa `deactivate`:
 
@@ -130,7 +128,7 @@ $ pip install -r requirements.txt
 
 Nesse caso o **pip** obtém os pacotes e suas especificações de versões do arquivo `requirements.txt` e instala no ambiente do projeto.
 
-## Instalação do pipenv
+## Usando o pipenv
 
 Para instalar o **pipenv** utilize o comando:
 
@@ -138,15 +136,13 @@ Para instalar o **pipenv** utilize o comando:
 $ pip install pipenv
 ```
 
-> **Observação**: Utilize o programa `pip3`, se necessário.
-
-Para detalhes da instalação leia a [documentação oficial do **pipenv**](https://docs.pipenv.org/).
+Para detalhes da instalação leia a [documentação oficial do **pipenv**](https://docs.pipenv.org/)^[Acesse: <https://docs.pipenv.org/>].
 
 Depois da instalação do **pipenv** você poderá utilizá-lo para criar um ambiente Python de forma semelhante ao **virtualenv**. 
 
-### Ativação do ambiente do projeto
+### Ativação do ambiente 
 
-Para ativar o ambiente do projeto utilize o comando:
+Para ativar o ambiente do projeto utilize o comando a partir da pasta do projeto:
 
 ```{style=nonumber .sh}
 $ pipenv shell
@@ -154,7 +150,7 @@ $ pipenv shell
 
 Esse processo é semelhante ao utilizado no **virtualenv** e faz a mesma coisa: configura variáveis de ambiente e modifica o prompt para mostrar uma identificação do ambiente.
 
-### Desativação do ambiente do projeto
+### Desativação do ambiente 
 
 A desativação do ambiente do projeto é feita com o programa `exit`, portanto basta executá-lo:
 
@@ -178,3 +174,9 @@ O **pipenv** mantém dois arquivos para o gerenciamento das dependências (pacot
 * `Pipfile.lock`
 
 Esses arquivos armazenam as informações sobre o ambiente do projeto e sobre os pacotes.
+
+Para instalar pacotes a partir de um arquivo `requirements.txt` use o comando:
+
+```{style=nonumber .sh}
+$ pipenv install -r requirements.txt
+```
