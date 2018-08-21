@@ -485,7 +485,7 @@ A [@fig:10-app-noticias-home] ilustra a tela inicial do software apresentando as
 
 ## Fazendo deploy no Heroku
 
-Seguindo o *workflow* o próximo passo é configurar o repositório local do Git e fazer o deploy no Heroku. Essa etapa fica como exercício. Se tiver dúvidas, volte para [@sec:introducao].
+Seguindo o *workflow* o próximo passo é configurar o repositório local do Git e fazer o deploy no Heroku. Essa etapa fica como exercício. Se tiver dúvidas, volte para o Capítulo [-@sec:introducao].
 
 ## Django Admin no Heroku
 
@@ -535,6 +535,38 @@ STATICFILES_DIRS = (
 ```
 
 Não se esqueça de seguir o **workdlow de deploy** e realizar as etapas de commit e push.
+
+---
+
+**Django, Heroku e arquivos estáticos**
+
+Geralmente o desenvolvimento de software Django envolve a utilização de mais de um servidor web: um servido web para o softwer Django, em si (como o **gunicorn**) e outro para os arquivos estáticos (como o **nginx**). 
+
+Como esse capítulo demonstrou, é possível utilizar o pacote **whitenoise** para fazer com que o **gunicorn** também entregue arquivos estáticos.
+
+Mas onde estão esses arquivos estáticos, quem os cria e como isso acontece? O Django contém, por padrão, vários arquivos estáticos. O servidor web local não se preocupa com isso porque ele consegue encontrar e entregar os arquivos estáticos automaticamente, mas o Django fornece um comando para gerar esses arquivos:
+
+```{style=nonumber .sh}
+python manage.py collectstatic
+```
+
+Esse comando lê as configurações do arquivo `settings.py`, identifica onde os arquivos estáticos do software e os salva no local adequado (veja, principalmente, o valor da constante `STATIC_ROOT`).
+
+No Heroku, o comportamento padrão é executar esse mesmo comando a cada **deploy**. Entretanto, no Capítulo [-@sec:introducao] você mudou esse comportamento ao executar:
+
+```{style=nonumber .sh}
+heroku config:set DISABLE_COLLECTSTATIC=1
+```
+
+A documentação do Heroku não é muito clara em relação a isso porque deixa como uma situação de exceção desabilitar a execução do comando, mas, se estiver criando o projeto Heroku, tente não executar esse comando (`heroku config:set...`) ou, se já tiver criado o projeto e executado esse comando anteriormente, execute:
+
+```{style=nonumber .sh}
+heroku config:set DISABLE_COLLECTSTATIC=0
+```
+
+Isso fará com que o Heroku retorne ao comportamento normal de executar o comando `pythhon manage.py collectstatic` ao fazer um **deploy**.
+
+---
 
 ## Ciclo do app no Heroku e o banco de dados SQLite
 
