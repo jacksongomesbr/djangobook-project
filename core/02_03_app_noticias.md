@@ -133,7 +133,57 @@ class Noticia(models.Model):
     conteudo = models.TextField()
 ```
 
-O que (@lst:app_noticias_noticia_model_inicio) apresenta é a classe `Noticia`, que herda de `models.Model` (`Model` é uma classe fornecida por `django.db.models`). O model `Noticia`  contém o campo `conteudo`. Uma instância da classe `TextField` (fornecida por `django.db.models`) é utilizada para indicar que o campo `conteudo` é um campo de texto (contém texto). Há mais tipos de campos para representar datas, números e outros. 
+O que (@lst:app_noticias_noticia_model_inicio) apresenta é a classe `Noticia`, que herda de `models.Model` (`Model` é uma classe fornecida por `django.db.models`). O model `Noticia`  contém o campo `conteudo`. Uma instância da classe `TextField` (fornecida por `django.db.models`) é utilizada para indicar que o campo `conteudo` é um campo de texto (contém texto). Mais especificamente, dizemos que é um campo do tipo `TextField`. Há mais tipos de campos para representar datas, números e outros, como mostra a [@tbl:tipos-de-campos-do-model]^[A referência completa do Model do Django contém também os tipos de campos e está disponível em <https://docs.djangoproject.com/en/2.1/ref/models/fields/>].
+
++---------------------------+-----------------------------------------------------------------------+
+|Tipo de campo              |Descrição                                                              |
++---------------------------+-----------------------------------------------------------------------+
+|`BigIntegerField`          |Um número inteiro de 64-bit                                            |
++---------------------------+-----------------------------------------------------------------------+
+|`BinaryField`              |Utilizado para armazenar dados binários                                |
++---------------------------+-----------------------------------------------------------------------+
+|`BooleanField`             |Um valor booleano (true/false)                                         |
++---------------------------+-----------------------------------------------------------------------+
+|`CharField`                |Uma string                                                             |
++---------------------------+-----------------------------------------------------------------------+
+|`DateField`                |Uma data                                                               |
++---------------------------+-----------------------------------------------------------------------+
+|`DateTimeField`            |Uma data com representação de tempo                                    |
++---------------------------+-----------------------------------------------------------------------+
+|`DecimalField`             |Um número real, com limite de casas e dígitos                          |
++---------------------------+-----------------------------------------------------------------------+
+|`DurationField`            |Utilizado para armazenar períodos de tempo                             |
++---------------------------+-----------------------------------------------------------------------+
+|`EmailField`               |Uma especialização de `CharField` para e-mail válido                   |
++---------------------------+-----------------------------------------------------------------------+
+|`FileField`                |Um campo que permite upload de arquivos                                |
++---------------------------+-----------------------------------------------------------------------+
+|`FilePathField`            |Permite selecionar um caminho de arquivo                               |
++---------------------------+-----------------------------------------------------------------------+
+|`FloatField`               |Um número real/float                                                   |
++---------------------------+-----------------------------------------------------------------------+
+|`ImageField`               |Uma especialização de `FileField` para imagens                         |
++---------------------------+-----------------------------------------------------------------------+
+|`IntegerField`             |Um número inteiro                                                      |
++---------------------------+-----------------------------------------------------------------------+
+|`GenericIPAddressField`    |Um endereço IPv4 ou IPv6                                               |
++---------------------------+-----------------------------------------------------------------------+
+|`NullBooleanField`         |Um valor booleano que pode receber null                                |
++---------------------------+-----------------------------------------------------------------------+
+|`PositiveSmallIntegerField`|Um número inteiro positivo pequeno                                     |
++---------------------------+-----------------------------------------------------------------------+
+|`SlugField`                |Uma string geralmente gerada automaticamente a partir de outro campo   |
++---------------------------+-----------------------------------------------------------------------+
+|`SmallIntegerField`        |Um número inteiro pequeno                                              |
++---------------------------+-----------------------------------------------------------------------+
+|`TextField`                |Uma string longa                                                       |
++---------------------------+-----------------------------------------------------------------------+
+|`TimeField`                |Uma representação de tempo (horas, minutos e segundos)                 |
++---------------------------+-----------------------------------------------------------------------+
+|`URLField`                 |Uma extensão de `CharField` para URL válida                            |
++---------------------------+-----------------------------------------------------------------------+
+
+: Tabela com tipos de campos no model do Django {#tbl:tipos-de-campos-do-model}
 
 O próximo passo é criar um **migration**:
 
@@ -437,11 +487,60 @@ A [@fig:10-app-noticias-home] ilustra a tela inicial do software apresentando as
 
 Seguindo o *workflow* o próximo passo é configurar o repositório local do Git e fazer o deploy no Heroku. Essa etapa fica como exercício. Se tiver dúvidas, volte para [@sec:introducao].
 
+## Django Admin no Heroku
+
+Se você chegou até aqui e acessou a interface administrativa do Django (Django Admin) provavelmente ficou frustrado porque a interface está incompleta porque não carregou os arquivos estáticos. 
+
+Independentemente de o ambiente de produção estar no Heroku o servidor **gunicorn** geralmente não é utilizado para entregar os arquivos estáticos. Geralmente utiliza-se outro serviço para isso (como o **Amazon S3** ou o **nginx**). Entretanto, é possível instruir o gunicorn a servir os arquivos estáticos realizando algumas configurações. Primeiro, instale o pacote **whitenoise**. Por exemplo:
+
+```{style=nonumber .sh}
+pipenv install whitenoise
+```
+
+Depois, configure a constante `MIDDLEWARE` do `settings.py` do projeto Django para incluir `whitenoise.middleware.WhiteNoiseMiddleware`. Exemplo:
+
+```
+...
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+]
+...
+```
+
+Na sequência, ainda no `settings.py`, informe a constante `STATICFILES_STORAGE`:
+
+```
+...
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+... 
+```
+
+Por fim, ainda no `settings.py`, configure os valores das constantes `STATIC_ROOT` e `STATICFILES_DIR`:
+
+```
+...
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+```
+
+Não se esqueça de seguir o **workdlow de deploy** e realizar as etapas de commit e push.
+
 ## Ciclo do app no Heroku e o banco de dados SQLite
 
 Até agora estamos utilizando o banco de dados SQLite. Já comentei que ele é mais útil no ambiente de desenvolvimento do que na produção e, no caso do Heroku, há uma razão que justifica essa afirmação. Os **dynos**, as unidades de execução do aplicativo no Heroku, são controlados pela estrutura de **PaaS**, o que significa que eles podem ser reiniciados de tempos em tempos e, até mesmo, são reiniciados toda vez que você faz um deploy. 
 
-Esse comportamento faz com que o arquivo do banco de dados SQLite seja sobrescrito toda vez que os **dynos** são iniciados. Então, se você testar seu software durante algum tempo, pode perceber que dados foram perdidos. Isso não é o comportamento adequado para a produção mas, por enquanto, não vamos resolver esse problema. Fica para outros capítulos. Aguenta aí.
+Esse comportamento faz com que o arquivo do banco de dados SQLite seja **sobrescrito com o conteúdo do último commit** toda vez que os **dynos** são iniciados. Então, se você testar seu software durante algum tempo, pode perceber que dados foram perdidos. Isso não é o comportamento adequado para a produção mas, por enquanto, não vamos resolver esse problema. Fica para outros capítulos. Aguenta aí.
 
 ## Testes
 
